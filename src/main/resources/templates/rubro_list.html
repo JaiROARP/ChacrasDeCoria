@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="/fragments/head :: head "></head>
+
+  <body>
+    <header th:replace="/fragments/header :: header "></header>
+    <nav id="nav-1" th:replace="/fragments/nav :: nav"></nav>
+
+    <div class="form-group my-3">
+    <img
+      th:src="@{/9.png}"
+      class="d-block mx-lg-auto img-fluid"
+      alt="Bootstrap Themes"/>
+    <br/>
+    </div>
+    
+    <div id="exito/error">
+      <div
+        th:if="${exito != null}"
+        id="exito"
+        class="card text-white bg-success mb-3 mt-3 mensajeExito"
+      >
+        <h5>exito</h5>
+        <p th:text="${exito}"></p>
+      </div>
+      <div
+        th:if="${error != null}"
+        id="error"
+        class="card text-white bg-danger mb-3 mensajeError"
+      >
+        <h5>error</h5>
+        <p th:text="${error}"></p>
+      </div>
+    </div>
+
+    <div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+      <table class="table">
+        <thead>
+          <tr>
+            
+            <th scope="col">Rubro</th>
+            <th>Agregar</th>
+            <th th:if="${session.usuario != null}" sec:authorize="hasRole('ADMIN')">Modificar</th>
+            <th th:if="${session.usuario != null}" sec:authorize="hasRole('ADMIN')">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody th:each="rubro : ${rubros}">
+          <tr>
+            
+            <th scope="row" th:text="${rubro.nombre}"></td>
+            <td>
+              <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+              <a style="color: black" th:href="@{/rubro/registrar}"
+                ><i class="fas fa-feather-alt"></i> Agregar
+              </a></button>
+            </td>
+            <td th:if="${session.usuario != null}" sec:authorize="hasRole('ADMIN')">
+              <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+              <!-- <a style="color: black" th:href="@{/rubro/modificar/__${rubro.id}__}" 
+                >--><i class="fas fa-feather-alt"></i> Modificar
+              </a></button>
+            </td>
+            <td th:if="${session.usuario != null}" sec:authorize="hasRole('ADMIN')">
+              <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+              <!-- <a style="color: black" th:href="@{/rubro/eliminar/__${rubro.id}__}" 
+                >--><i class="fas fa-feather-alt"></i> Eliminar
+              </a></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <section th:replace="/fragments/section :: section "></section>
+    <script th:replace="/fragments/script :: script "></script>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+  </body>
+</html>

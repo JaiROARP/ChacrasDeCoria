@@ -1,0 +1,75 @@
+<footer
+  class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+  style="background-color: #142e79"
+>
+  <p class="col-md-4 mb-0 text-white" text-white>
+    &copy; 2023 Equipo 4, Camada 2
+  </p>
+
+  <a
+    href="/"
+    class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+  >
+    <!-- Aca va el logo <img>-->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-tools"
+      viewBox="0 0 16 16"
+    >
+      <img th:src="@{/logo.png}" alt="logo" />
+    </svg>
+  </a>
+
+  <ul class="nav col-md-4 justify-content-end">
+    <li class="nav-item">
+      <a th:href="@{/}" class="nav-link px-2 text-white">Inicio</a>
+    </li>
+    <li class="nav-item">
+      <a
+        th:if="${session.usuario != null}"
+        class="nav-link px-2 text-white"
+        th:href="@{/proveedor/lista}"
+        sec:authorize="hasAnyRole('ADMIN', 'USER')"
+        >Proveedores</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        th:if="${session.usuario != null}"
+        class="nav-link px-2 text-white"
+        th:href="@{/rubro/lista}"
+        sec:authorize="hasAnyRole('ADMIN', 'PROVEEDOR')"
+        >Rubros</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        th:if="${session.usuario != null}"
+        class="nav-link px-2 text-white"
+        th:href="@{/contratacion/lista}"
+        sec:authorize="hasRole('ADMIN')"
+        >Contrataciones</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        th:if="${session.usuario == null}"
+        th:href="@{/login}"
+        class="nav-link px-2 text-white"
+        >Ingresar</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        th:if="${session.usuario == null}"
+        data-bs-toggle="modal" data-bs-target="#miModal"
+        th:href="@{/#}"
+        class="nav-link px-2 text-white"
+        >Registrar</a
+      >
+    </li>
+  </ul>
+</footer>

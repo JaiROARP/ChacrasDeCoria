@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    >
+    <head th:replace="/fragments/head :: head "></head>
+    <body>
+        <header th:replace="/fragments/header :: header "></header>
+        <nav id="nav-1" th:replace="/fragments/nav :: nav"></nav>
+
+        <div class="form-group my-3">
+            <img
+                th:src="@{/16.png}"
+                class="d-block mx-lg-auto img-fluid"
+                alt="Bootstrap Themes"/>
+            <br/>
+        </div>
+
+        <div id="exito/error">
+            <div
+                th:if="${exito != null}"
+                id="exito"
+                class="card text-white bg-success mb-3 mt-3 mensajeExito"
+                >
+                <h5>exito</h5>
+                <p th:text="${exito}"></p>
+            </div>
+            <div
+                th:if="${error != null}"
+                id="error"
+                class="card text-white bg-danger mb-3 mensajeError"
+                >
+                <h5>error</h5>
+                <p th:text="${error}"></p>
+            </div>
+        </div>
+
+
+        <div class="container my-5">
+            <div class="p-5 text-center bg-body-tertiary rounded-3">
+                <form
+                    class="formulario"
+                    th:action="@{/usuario/registro}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    >
+
+                    <div class="form-group my-3">
+                        <label for="nombre" style="display: flex">Nombre</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="nombre"
+                            placeholder="Ingrese su nombre completo"
+                            th:value="${nombre}"
+                            />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="apellido" style="display: flex"
+                               >Apellido</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="apellido"
+                            placeholder="Ingrese su apellido completo"
+                            th:value="${apellido}"
+                            />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="documento" style="display: flex"
+                               >Documento</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="documento"
+                            placeholder="Indique su número de Documento"
+                            th:value="${documento}"
+                            />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="email" style="display: flex">Correo electrónico</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            name="email"
+                            placeholder="Ingrese su email de contacto"
+                            th:value="${email}"
+                            />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="archivo" style="display: flex">Foto de perfil</label><br />
+                        <input type="file" class="form-control" name="archivo" />
+
+                        <div class="form-group my-3">
+                            <label for="password" style="display: flex"
+                                   >Contraseña: </label>
+                            <small id="passwordHelp" class="form-text text-muted">
+                                La contraseña debe tener un mínimo de 8 caracteres y debe incluir al menos una letra mayúscula y un número.
+                            </small>
+                            <input
+                                type="password"
+                                id="field"
+                                class="form-control"
+                                name="password"
+                                placeholder="Ingrese una contraseña"
+                                th:value="${password}"
+                                />
+                            <label>Mostrar contraseña
+                                <input type="checkbox" onclick="mostrarPassword()">
+                            </label>
+                        </div>
+
+
+
+
+                        <div class="form-group my-3">
+                            <label for="password2" style="display: flex"
+                                   >Repita contraseña</label
+                            >
+                            <input
+                                type="password"
+                                id="field2"
+                                class="form-control"
+                                name="password2"
+                                placeholder="Repita la contraseña"
+                                th:value="${password2}"
+                                />
+                            <label>Mostrar contraseña
+                                <input type="checkbox" onclick="mostrarPassword2()">
+                            </label>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="telefono" style="display: flex"
+                                   >Teléfono</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="telefono"
+                                placeholder="Indique su teléfono de contacto"
+                                th:value="${telefono}"
+                                />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="direccion" style="display: flex"
+                                   >Domicilio</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="direccion"
+                                placeholder="Indique su dirección"
+                                th:value="${direccion}"
+                                />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3 botones">
+                            Registrarme
+                        </button>
+                        <button type="reset" class="btn btn-primary mt-3 botones">
+                            Borrar
+                        </button>
+                </form>
+            </div>
+        </div>
+
+
+        <script>
+            const mostrarPassword = () => {
+                let input = document.querySelector("#field")
+                if (input.type === "password") {
+                    input.type = "text"
+                } else {
+                    input.type = "password"
+                }
+            }
+
+            const mostrarPassword2 = () => {
+                let input = document.querySelector("#field2")
+                if (input.type === "password") {
+                    input.type = "text"
+                } else {
+                    input.type = "password"
+                }
+            }
+        </script>
+
+        <div th:replace="~{/fragments/modal :: div}"></div> 
+        <div th:replace="~{/fragments/login :: div}"></div>
+        <section th:replace="/fragments/section :: section "></section>
+        <script th:replace="/fragments/script :: script "></script>
+        <footer th:replace="/fragments/footer :: footer"></footer>
+        <!-- Bootstrap Popper.js -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+
+
+    </body>
+</html>

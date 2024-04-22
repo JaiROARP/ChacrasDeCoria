@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    >
+    <head th:replace="/fragments/head :: head "></head>
+
+    <body>
+        <header th:replace="/fragments/header :: header "></header>
+        <nav id="nav-1" th:replace="/fragments/nav :: nav"></nav>
+
+        <div class="form-group my-3">
+            <img
+                th:src="@{/17.png}"
+                class="d-block mx-lg-auto img-fluid"
+                alt="Bootstrap Themes"/>
+            <br/>
+        </div>
+
+        <div id="exito/error">
+            <div
+                th:if="${exito != null}"
+                id="exito"
+                class="card text-white bg-success mb-3 mt-3 mensajeExito"
+                >
+                <h5>exito</h5>
+                <p th:text="${exito}"></p>
+            </div>
+            <div
+                th:if="${error != null}"
+                id="error"
+                class="card text-white bg-danger mb-3 mensajeError"
+                >
+                <h5>error</h5>
+                <p th:text="${error}"></p>
+            </div>
+        </div>
+
+        <div class="container my-5">
+            <div class="p-5 text-center bg-body-tertiary rounded-3">
+                <form
+                    class="formulario"
+                    th:action="@{/proveedor/editarPerfil/__${session.usuario.id}__}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    >
+
+                    <div class="form-group my-3">
+                        <label for="nombre" style="display: flex">Nombre</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="nombre"
+                            th:placeholder="${session.usuario.nombre}"
+                            th:value="${session.usuario.nombre}"
+                            />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="apellido" style="display: flex"
+                               >Apellido</label
+                        >
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="apellido"
+                            th:placeholder="${session.usuario.apellido}"
+                            th:value="${session.usuario.apellido}"
+                            />
+                    </div>
+
+                    <!--          <div class="form-group my-3">
+                                <label for="documento" style="display: flex"
+                                  >Documento</label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  name="documento"
+                                  th:placeholder="${session.usuario.documento}"
+                                  th:value="${documento}"
+                                />
+                              </div>
+                    -->
+                    <div class="form-group my-3">
+                        <label for="email" style="display: flex">Correo electronico</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            name="email"
+                            th:placeholder="${session.usuario.email}"
+                            th:value="${session.usuario.email}"
+                            />
+                    </div>
+
+                    <div class="form-group my-3">
+                        <label for="archivo" style="display: flex">Foto</label><br />
+                        <input type="file" class="form-control" name="archivo" />
+
+                        <div class="form-group my-3">
+                            <label for="password" style="display: flex"
+                                   >Nueva Contraseña</label
+                            >
+                            <input
+                                type="password"
+                                id="field"
+                                class="form-control"
+                                name="password"
+                                placeholder="Ingrese su contraseña"
+                                />
+                            <label>Mostrar contraseña
+                                <input type="checkbox" onclick="mostrarPassword()">
+                            </label>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="password2" style="display: flex"
+                                   >Repita la contraseña</label
+                            >
+                            <input
+                                type="password"
+                                id="field2"
+                                class="form-control"
+                                name="password2"
+                                placeholder="Repita la contraseña"
+                                />
+                            <label>Mostrar contraseña
+                                <input type="checkbox" onclick="mostrarPassword2()">
+                            </label>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="telefono" style="display: flex"
+                                   >Teléfono</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="telefono"
+                                th:placeholder="${session.usuario.telefono}"
+                                th:value="${session.usuario.telefono}"
+                                />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="direccion" style="display: flex"
+                                   >Domicilio</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="direccion"
+                                th:placeholder="${session.usuario.direccion}"
+                                th:value="${session.usuario.direccion}"
+                                />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="precioHora" style="display: flex"
+                                   >Valor Hora Promedio</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="precioHora"
+                                placeholder="Indique un valor promedio de hora laboral"
+                                th:value="${precioHora}"
+                                />
+                        </div>
+
+                        <div class="form-group my-3">
+                            <label for="descripcionServicio" style="display: flex"
+                                   >Descripción de Servicios</label
+                            >
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                name="descripcionServicio"
+                                placeholder="Describa brevemente en que consiste el servicio que puede brindar"
+                                th:value="${descripcionServicio}"
+                                ></textarea>
+                        </div>
+
+                        <div>
+                            <select name="rubro" required>
+                                <option value="">Elija un rubro</option>
+                                <option
+                                    th:each="rubro : ${rubros}"
+                                    th:value="${rubro.id}"
+                                    th:text="${rubro.nombre}"
+                                    ></option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3 botones">
+                            Actualizar
+                        </button>
+                        <button type="reset" class="btn btn-primary mt-3 botones">
+                            Borrar
+                        </button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            const mostrarPassword = () => {
+                let input = document.querySelector("#field")
+                if (input.type === "password") {
+                    input.type = "text"
+                } else {
+                    input.type = "password"
+                }
+            }
+
+            const mostrarPassword2 = () => {
+                let input = document.querySelector("#field2")
+                if (input.type === "password") {
+                    input.type = "text"
+                } else {
+                    input.type = "password"
+                }
+            }
+        </script>
+
+        <section th:replace="/fragments/section :: section "></section>
+        <script th:replace="/fragments/script :: script "></script>
+        <footer th:replace="/fragments/footer :: footer"></footer>
+    </body>
+</html>

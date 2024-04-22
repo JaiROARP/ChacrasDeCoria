@@ -1,0 +1,16 @@
+h1{
+    color: bisque;
+    text-align: center;
+
+}
+#carouselExampleIndicators {
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+header, nav {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
